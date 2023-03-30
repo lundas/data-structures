@@ -3,7 +3,8 @@ var Tree = function(value) {
   newTree.value = value;
 
   // your code here
-  newTree.children = null;  // fix me
+  newTree.children = []; // fix me
+  _.extend(newTree, treeMethods);
 
   return newTree;
 };
@@ -11,11 +12,30 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
+  this.children.push(Tree(value));
 };
 
-treeMethods.contains = function(target) {
-};
 
+// pseudocode:
+// 1. define trigger boolean
+// 2. check if value equals target, is yes return
+// 3. make recursive call on each child
+treeMethods.contains = function(target, isTarget) {
+  isTarget = isTarget === undefined ? false : isTarget;
+  if (this.value === target) {
+    isTarget = true;
+  }
+
+  if (isTarget || !this.children) {
+    return isTarget;
+  } else {
+    // recursive call on each child
+    isTarget = _.reduce(this.children, function(found, child) {
+      child.contains(target, found);
+    }, isTarget);
+  }
+  return isTarget;
+};
 
 
 /*
