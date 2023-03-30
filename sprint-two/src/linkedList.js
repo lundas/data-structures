@@ -9,6 +9,12 @@ var LinkedList = function() {
   list.removeHead = function() {
   };
 
+
+  //pseudocode:
+  // grab the value at head. test if head.value === target
+  // make recursive call
+  // base: if it has the value or next is null, then contains === false
+  // recursive: call this function on node.next
   list.contains = function(target) {
   };
 
@@ -27,3 +33,4 @@ var Node = function(value) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
+
