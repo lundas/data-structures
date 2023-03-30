@@ -4,18 +4,38 @@ var LinkedList = function() {
   list.tail = null;
 
   list.addToTail = function(value) {
+    let node = Node(value);
+    if (list.head === null && list.tail === null) {
+      list.head = node;
+      list.tail = node;
+    }
+    list.tail.next = node;
+    list.tail = node;
   };
 
   list.removeHead = function() {
+    if (list.head === null) {
+      return null;
+    }
+    let value = list.head.value;
+    list.head = list.head.next;
+    return value;
   };
 
-
-  //pseudocode:
-  // grab the value at head. test if head.value === target
-  // make recursive call
-  // base: if it has the value or next is null, then contains === false
-  // recursive: call this function on node.next
-  list.contains = function(target) {
+  list.contains = function(target, node) {
+    if (list.head === null) {
+      return false;
+    }
+    node = node === undefined ? node = list.head : node = node;
+    let isTarget = false;
+    if (target === node.value) {
+      isTarget = true;
+    } else if (node.next === null) {
+      return isTarget;
+    } else {
+      isTarget = list.contains(target, node.next);
+    }
+    return isTarget;
   };
 
   return list;
@@ -33,4 +53,8 @@ var Node = function(value) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
+
+// remove head and add to tail are constant
+// contains is linear
+// Note: without a tail property, add to tail would also be linear
 
