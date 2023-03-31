@@ -1,4 +1,54 @@
+// Binary Search Tree
+// Properties:
+// value: value at nodoe
+// children: object containing left and right properties
+
+
 var BinarySearchTree = function(value) {
+  var newTree = Object.create(BinarySearchTree.prototype);
+  newTree.value = value;
+  return newTree;
+};
+
+BinarySearchTree.prototype.insert = function(value) {
+  var isGreater = value > this.value;
+
+  if (!this.right && isGreater) {
+    this.right = BinarySearchTree(value);
+  } else if (!this.left) {  // problem is here
+    this.left = BinarySearchTree(value);
+  } else if (isGreater) {
+    this.right.insert(value);
+  } else {
+    this.left.insert(value);
+  }
+};
+
+BinarySearchTree.prototype.contains = function(target) {
+  var isGreater = target > this.value;
+
+  if (this.value === target) {
+    return true;
+  } else if (!this.right && isGreater) {
+    return false;
+  } else if (!this.left) {
+    return false;
+  } else if (isGreater) {
+    return this.right.contains(target);
+  } else {
+    return this.left.contains(target);
+  }
+
+};
+
+BinarySearchTree.prototype.depthFirstLog = function(callback) {
+  callback(this.value);
+  if (this.left) {
+  this.left.depthFirstLog(callback);
+}
+if (this.right) {
+  this.right.depthFirstLog(callback);
+}
 };
 
 
