@@ -25,13 +25,13 @@ treeMethods.contains = function(target, isTarget) {
   if (this.value === target) {
     isTarget = true;
   }
-
+  // let's use the native reduce instead of underbar reduce.
   if (isTarget || !this.children) {
     return isTarget;
   } else {
     // recursive call on each child
-    isTarget = _.reduce(this.children, function(found, child) {
-      child.contains(target, found);
+    isTarget = this.children.reduce( function(found, child) {
+      return child.contains(target, found);
     }, isTarget);
   }
   return isTarget;
@@ -40,4 +40,5 @@ treeMethods.contains = function(target, isTarget) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ *
  */
