@@ -20,3 +20,7 @@ setPrototype.remove = function(item) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
+
+// 'str3'
+// input 'str3' output 'strstr3'
+// '3'

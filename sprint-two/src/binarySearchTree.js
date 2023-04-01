@@ -12,14 +12,18 @@ var BinarySearchTree = function(value) {
 
 BinarySearchTree.prototype.insert = function(value) {
   var isGreater = value > this.value;
+  if (this.value === value) {
+    // throw new Error('Value already in tree');
+    throw new Error('Value already in tree');
+  }
 
   if (!this.right && isGreater) {
     this.right = BinarySearchTree(value);
-  } else if (!this.left) {  // problem is here
+  } else if (!this.left && !isGreater) {
     this.left = BinarySearchTree(value);
-  } else if (isGreater) {
+  } else if (isGreater && this.right) {
     this.right.insert(value);
-  } else {
+  } else if (!isGreater && this.left) {
     this.left.insert(value);
   }
 };
@@ -44,11 +48,11 @@ BinarySearchTree.prototype.contains = function(target) {
 BinarySearchTree.prototype.depthFirstLog = function(callback) {
   callback(this.value);
   if (this.left) {
-  this.left.depthFirstLog(callback);
-}
-if (this.right) {
-  this.right.depthFirstLog(callback);
-}
+    this.left.depthFirstLog(callback);
+  }
+  if (this.right) {
+    this.right.depthFirstLog(callback);
+  }
 };
 
 

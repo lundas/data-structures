@@ -68,4 +68,14 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  it('should not add an edge between nodes when one does not exist', function() {
+    graph.addNode(5);
+    graph.addNode(2);
+    graph.addNode(1);
+    graph.addNode(3);
+    expect(function() { graph.addEdge('baz', 5); } ).to.throw('Adding Edge to a node which does not exist')
+    expect(function() { graph.addEdge('foo', 'bar'); } ).to.throw('Adding Edge to a node which does not exist')
+    expect(function() { graph.addEdge(5, 6); } ).to.throw('Adding Edge to a node which does not exist')
+  });
 });
